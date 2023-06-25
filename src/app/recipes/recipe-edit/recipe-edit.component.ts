@@ -54,7 +54,7 @@ export class RecipeEditComponent {
 
     this.recipeForm = new FormGroup({
       name: new FormControl(recipeName, Validators.required),
-      image: new FormControl(recipeImagePath, Validators.required),
+      imagePath: new FormControl(recipeImagePath, Validators.required),
       description: new FormControl(recipeDescription, Validators.required),
       ingredients: recipeIngredients,
     });
@@ -77,6 +77,10 @@ export class RecipeEditComponent {
   }
 
   onSubmit() {
-    console.log(this.recipeForm);
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
   }
 }
